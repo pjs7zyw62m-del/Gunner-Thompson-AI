@@ -5,6 +5,23 @@
 <title>GUNNER THOMPSON — Private Archive</title>
 <style>
 :root{color-scheme:dark;--bg:#080a0e;--panel:#151920cc;--border:#353d48;--ink:#e8eaed;--muted:#a0a7b2;--red:#ad3442;--silver:#d9dfe6}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 85% 0,#262a31 0,transparent 40%),linear-gradient(155deg,#080a0e,#101318 70%,#08090c);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink)}header{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:23px clamp(18px,4vw,64px);border-bottom:1px solid #ffffff16;backdrop-filter:blur(20px)}.brand{font-weight:800;letter-spacing:.18em;font-size:14px}.sub{font-size:11px;color:var(--muted);letter-spacing:.24em;margin-top:2px}.shell{max-width:1240px;margin:0 auto;padding:clamp(20px,4vw,50px)}.panel{background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:24px;box-shadow:0 20px 65px #0005;backdrop-filter:blur(25px)}.login{max-width:460px;margin:6vh auto}h1{font-size:clamp(24px,4vw,34px);margin:0 0 8px;font-weight:700;letter-spacing:-.025em}h2{font-size:18px;margin:0 0 14px}p{color:var(--muted);margin:4px 0 18px}.muted{color:var(--muted)}label{display:block;font-weight:600;font-size:12px;letter-spacing:.08em;color:#c4c9d0;margin:15px 0 6px}input,select,textarea{width:100%;background:#0b0e13;border:1px solid #414955;color:#fff;border-radius:12px;padding:12px 13px;font:inherit}input:focus,select:focus,textarea:focus{outline:1px solid #bdc5d0}button{background:linear-gradient(180deg,#f0f1f4,#b7bdc7);color:#101318;border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:700;cursor:pointer}button.secondary{background:#252b34;color:#ebedf1;border:1px solid #4b5562}button.danger{background:#451c25;color:#ffdce2;border:1px solid #9f3445}button:disabled{opacity:.5;cursor:not-allowed}.inline{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:17px;margin-top:20px}.photo{overflow:hidden;border:1px solid #3e4651;background:#161a20;border-radius:18px}.photo img{display:block;width:100%;height:250px;object-fit:cover;background:#050507}.photo-body{padding:14px}.photo-title{font-size:14px;font-weight:700;overflow-wrap:anywhere}.small{font-size:12px;color:var(--muted)}.photo-actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}.photo-actions button{font-size:12px;padding:8px 10px}.stats{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}.stat{border-radius:14px;background:#181d25;border:1px solid #343c47;padding:12px 20px}.stat strong{display:block;font-size:22px}.status{font-size:13px;margin-top:12px;min-height:20px;color:#ced5de;white-space:pre-wrap}.error{color:#ff9da8}.hidden{display:none!important}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.tabs button.active{background:#d7dce4;color:#111}.notice{font-size:12px;padding:12px 14px;background:#27211b;border:1px solid #705b42;border-radius:12px;color:#e8d0b2;margin-top:20px}footer{text-align:center;padding:28px 12px;color:#858d99;font-size:11px;letter-spacing:.09em}.small-btn{padding:8px 12px}.rate{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.rate select{width:auto;min-width:105px;padding:7px}.top-controls{margin:24px 0}.pill{border:1px solid #535a63;border-radius:999px;padding:4px 10px;font-size:11px;color:#bac2cd}@media(max-width:600px){header{padding:17px}.panel{padding:17px}.shell{padding:18px}.brand{letter-spacing:.11em}.photo img{height:270px}}
+
+/* Gunner authenticated chat */
+.chat-panel{margin:0 0 24px;border-color:#4a4248;background:linear-gradient(155deg,#201b22dd,#11151ccc 58%,#17191fcc)}
+.chat-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.chat-title h2{margin:0}
+.chat-light{width:9px;height:9px;border-radius:50%;background:#9ea7b2;box-shadow:0 0 0 4px #ffffff0b}
+.chat-messages{display:flex;flex-direction:column;gap:12px;min-height:210px;max-height:410px;overflow-y:auto;background:#080b10;border:1px solid #3c434f;border-radius:16px;padding:15px;margin:17px 0;overscroll-behavior:contain}
+.chat-entry{max-width:min(87%,760px);padding:12px 15px;border-radius:16px;overflow-wrap:anywhere;white-space:pre-wrap;line-height:1.6}
+.chat-entry.user{align-self:flex-end;background:#26313e;border:1px solid #4c5a6b;border-bottom-right-radius:5px}
+.chat-entry.gunner{align-self:flex-start;background:#292127;border:1px solid #59404b;border-bottom-left-radius:5px}
+.chat-entry.system{align-self:center;background:transparent;color:#b2bac5;text-align:center;font-size:12px;padding:5px}
+.chat-entry .speaker{display:block;font-weight:800;font-size:11px;letter-spacing:.12em;margin-bottom:5px;color:#dfe5ed}
+.chat-entry.gunner .speaker{color:#e5acb6}
+.chat-compose{display:flex;align-items:stretch;gap:10px}
+.chat-compose textarea{flex:1;resize:vertical;min-height:64px;max-height:170px}
+.chat-compose button{min-width:112px}
+.chat-note{color:var(--muted);font-size:12px;margin-top:9px}
+@media(max-width:600px){.chat-compose{flex-direction:column}.chat-compose button{width:100%}.chat-entry{max-width:95%}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -13,7 +30,7 @@
 <main class="shell">
 <section id="setup" class="panel login"><h1>Connect your vault</h1><p>Enter the Project URL and <strong>publishable</strong> key from your separate Gunner Supabase project. These public connection details are saved only in this browser.</p><label for="url">SUPABASE PROJECT URL</label><input id="url" type="url" placeholder="https://your-project.supabase.co" autocomplete="off"><label for="key">SUPABASE PUBLISHABLE KEY</label><input id="key" type="text" placeholder="sb_publishable_..." autocomplete="off"><div class="inline" style="margin-top:20px"><button id="connect">Save connection</button></div><div class="notice">Never enter your Supabase secret/service-role key, database password, or RunPod token here.</div><div class="status" id="setupStatus" role="status"></div></section>
 <section id="login" class="panel login hidden"><h1>Private sign in</h1><p>Use the application user you created in Supabase Authentication → Users.</p><form id="loginForm"><label for="email">EMAIL</label><input type="email" id="email" required autocomplete="email"><label for="password">PASSWORD</label><input type="password" id="password" required autocomplete="current-password"><div class="inline" style="margin-top:20px"><button type="submit" id="loginBtn">Unlock archive</button><button type="button" class="secondary" id="reconfigure">Connection settings</button></div></form><div class="status" id="loginStatus" role="status"></div></section>
-<section id="app" class="hidden"><div class="inline between"><div><h1>Military Photo Archive</h1><p>A private collection of adult military-uniform photographs.</p></div><span class="pill">OWNER ACCESS</span></div><div class="stats"><div class="stat"><strong id="totalCount">0</strong><span class="small">Active photographs</span></div><div class="stat"><strong id="binCount">0</strong><span class="small">Deletion Folder</span></div><div class="stat"><strong id="favoriteCount">0</strong><span class="small">Favorites</span></div></div><div class="panel"><h2>Add to collection</h2><div class="inline"><input style="flex:2;min-width:190px" type="file" id="files" accept="image/jpeg,image/png,image/webp" multiple><button id="upload">Upload selected</button></div><div class="status" id="uploadStatus" role="status"></div></div><div class="tabs"><button class="secondary active" data-view="active">Gallery</button><button class="secondary" data-view="favorites">Favorites</button><button class="secondary" data-view="deleted">Deletion Folder</button><button class="secondary" id="refresh">Refresh</button></div><div class="status" id="galleryStatus" role="status"></div><div class="grid" id="gallery"></div><div class="notice">This first version supports private login, uploads, favorites, your and Gunner's separate overall scores, and recoverable deletion. Automated AI analysis, trigger-region selection, and preference learning are not connected yet. For privacy, only upload photos you have permission to store.</div></section>
+<section id="app" class="hidden"><div class="inline between"><div><h1>Military Photo Archive</h1><p>A private collection of adult military-uniform photographs.</p></div><span class="pill">OWNER ACCESS</span></div><div class="stats"><div class="stat"><strong id="totalCount">0</strong><span class="small">Active photographs</span></div><div class="stat"><strong id="binCount">0</strong><span class="small">Deletion Folder</span></div><div class="stat"><strong id="favoriteCount">0</strong><span class="small">Favorites</span></div></div><section class="panel chat-panel" id="gunnerChatPanel" aria-labelledby="gunnerChatTitle"><div class="inline between"><div class="chat-title"><span class="chat-light" aria-hidden="true"></span><h2 id="gunnerChatTitle">Talk to Gunner</h2></div><span class="pill" id="chatMode">DOLPHIN 3.0 · RUNPOD</span></div><p>Talk directly to Gunner Thompson using his saved cloud personality and memories.</p><div class="chat-messages" id="chatMessages" role="log" aria-label="Gunner conversation" aria-live="polite"><div class="chat-entry system">Gunner's chat is ready to connect. Type a message to begin.</div></div><form class="chat-compose" id="gunnerChatForm"><textarea id="gunnerChatInput" placeholder="Say something to Gunner..." maxlength="2000" rows="2" required aria-label="Message to Gunner"></textarea><button type="submit" id="gunnerChatSend">Send message</button></form><div class="status" id="gunnerChatStatus" role="status"></div><div class="chat-note">A message can start a paid RunPod inference job. The first response may be delayed while the model starts. This chat currently sends one message per request; lasting conversation history and automatic learning are not enabled.</div></section><div class="panel"><h2>Add to collection</h2><div class="inline"><input style="flex:2;min-width:190px" type="file" id="files" accept="image/jpeg,image/png,image/webp" multiple><button id="upload">Upload selected</button></div><div class="status" id="uploadStatus" role="status"></div></div><div class="tabs"><button class="secondary active" data-view="active">Gallery</button><button class="secondary" data-view="favorites">Favorites</button><button class="secondary" data-view="deleted">Deletion Folder</button><button class="secondary" id="refresh">Refresh</button></div><div class="status" id="galleryStatus" role="status"></div><div class="grid" id="gallery"></div><div class="notice">This first version supports private login, uploads, favorites, your and Gunner's separate overall scores, and recoverable deletion. Automated AI analysis, trigger-region selection, and preference learning are not connected yet. For privacy, only upload photos you have permission to store.</div></section>
 </main><footer>GUNNER THOMPSON · INDEPENDENT PROJECT · NOT CONNECTED TO NEXUS</footer>
 <script>
 'use strict';
@@ -44,6 +61,53 @@ async function updatePhoto(id,patch){const {error}=await sb.from('gunner_photos'
 async function ratePhoto(id){const who=prompt('Whose score? Enter: user or gunner','user');if(who===null)return;if(!['user','gunner'].includes(who.trim().toLowerCase()))throw Error('Enter user or gunner.');const raw=prompt('Overall impression from 0 to 10 (stored as personal impact):','8');if(raw===null)return;const score=Number(raw);if(raw.trim()===''||!Number.isFinite(score)||score<0||score>10)throw Error('Enter a number from 0 to 10.');const {error}=await sb.from('gunner_photo_ratings').upsert({owner_id:activeUser.id,photo_id:id,rated_by:who.trim().toLowerCase(),personal_impact:score},{onConflict:'owner_id,photo_id,rated_by'});if(error)throw error;status('galleryStatus',`Saved ${who}'s score: ${score}/10`)}
 async function hashFile(file){const bytes=await file.arrayBuffer();const digest=await crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('')}
 $('upload').onclick=async()=>{if(!activeUser)return;const items=[...$('files').files];if(!items.length){status('uploadStatus','Select one or more photographs first.',true);return} $('upload').disabled=true;let good=0;const errors=[];for(const file of items){try{if(!['image/jpeg','image/png','image/webp'].includes(file.type))throw Error('Only JPEG, PNG, or WEBP allowed');if(file.size>20*1024*1024)throw Error('File exceeds 20 MB');status('uploadStatus',`Uploading ${file.name} (${good+1} of ${items.length})...`);const hash=await hashFile(file);const check=await sb.from('gunner_photos').select('id').eq('file_hash',hash).limit(1);if(check.error)throw check.error;if(check.data.length)throw Error('Duplicate file already in collection');const ext=({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[file.type];const path=`${activeUser.id}/${crypto.randomUUID()}.${ext}`;const uploaded=await sb.storage.from(BUCKET).upload(path,file,{contentType:file.type,upsert:false});if(uploaded.error)throw uploaded.error;const saved=await sb.from('gunner_photos').insert({owner_id:activeUser.id,storage_path:path,file_hash:hash,title:file.name.replace(/\.[^.]+$/,'')});if(saved.error)throw new Error(`File uploaded but catalog entry failed (${path}): ${errMsg(saved.error)}`);good++}catch(e){errors.push(`${file.name}: ${errMsg(e)}`)}}$('upload').disabled=false;$('files').value='';status('uploadStatus',`Saved ${good} of ${items.length}.`+(errors.length?'\n'+errors.join('\n'):''),errors.length>0);await loadPhotos()};
+// Authenticated chat with the existing Supabase Edge Function.
+const GUNNER_CHAT_FUNCTION = 'Gunner-Thompson-AI';
+let chatBusy = false;
+function addChatMessage(who, message){
+ const log=$('chatMessages');
+ const entry=document.createElement('div');entry.className='chat-entry '+who;
+ if(who!=='system'){
+  const speaker=document.createElement('span');speaker.className='speaker';speaker.textContent=who==='user'?'YOU':'GUNNER THOMPSON';entry.append(speaker);
+ }
+ const body=document.createElement('span');body.textContent=message;entry.append(body);
+ log.append(entry);log.scrollTop=log.scrollHeight;
+}
+$('gunnerChatForm').addEventListener('submit',async event=>{
+ event.preventDefault();
+ if(chatBusy)return;
+ if(!sb||!activeUser){status('gunnerChatStatus','Please sign in before chatting.',true);return;}
+ const message=$('gunnerChatInput').value.trim();
+ if(!message||message.length>2000){status('gunnerChatStatus','Enter a message under 2,000 characters.',true);return;}
+ chatBusy=true;$('gunnerChatSend').disabled=true;$('gunnerChatInput').disabled=true;
+ addChatMessage('user',message);$('gunnerChatInput').value='';
+ status('gunnerChatStatus','Contacting Dolphin 3.0. Starting a worker may take time...');
+ try{
+  const sessionResult=await sb.auth.getSession();
+  if(sessionResult.error)throw sessionResult.error;
+  if(!sessionResult.data.session?.access_token)throw Error('Your session expired. Sign in again.');
+  const {data,error}=await sb.functions.invoke(GUNNER_CHAT_FUNCTION,{body:{message}});
+  if(error){
+   let detail='';
+   try{if(error.context?.json){const payload=await error.context.json();detail=payload?.error||payload?.message||'';}}catch{}
+   throw Error(detail||error.message||'Chat request failed');
+  }
+  if(data?.status==='completed'&&typeof data.reply==='string'&&data.reply.trim()){
+   addChatMessage('gunner',data.reply.trim());status('gunnerChatStatus','Gunner replied.');
+  }else if(data?.job_id){
+   addChatMessage('system','RunPod accepted the job but it has not finished. Job ID: '+data.job_id+'. No automatic polling yet; check its status in RunPod Requests. Do not send the same request again just to check it.');
+   status('gunnerChatStatus','Job pending on RunPod (not a completed chat response).');
+  }else{
+   throw Error(data?.error||data?.message||'The function returned no completed response.');
+  }
+ }catch(error){
+  addChatMessage('system','Chat connection issue: '+errMsg(error));
+  status('gunnerChatStatus',errMsg(error),true);
+ }finally{
+  chatBusy=false;$('gunnerChatSend').disabled=false;$('gunnerChatInput').disabled=false;
+  $('gunnerChatInput').focus();
+ }
+});
 for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>{view=b.dataset.view;for(const x of document.querySelectorAll('[data-view]'))x.classList.toggle('active',x===b);render()};$('refresh').onclick=loadPhotos;
 (async()=>{try{const c=JSON.parse(localStorage.getItem('gunner_config')||'null');if(c){$('url').value=c.url||'';$('key').value=c.key||'';await init(c)}}catch(e){show('setup');status('setupStatus',`Connection needs attention: ${errMsg(e)}`,true)}})();
 </script>
