@@ -4,29 +4,110 @@ const endpoint='https://shdebjikbdanvmlehvda.supabase.co/functions/v1/gunner-pub
 const input=document.getElementById('message'),log=document.getElementById('messages'),btn=document.getElementById('send');
 const add=(value,cls)=>{const m=document.createElement('div');m.className='msg '+cls;m.textContent=value;log.append(m);m.scrollIntoView({block:'nearest'});return m};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const KEY='gunner-demo-history-v1';
+const KEY='gunner-demo-history-v1',JOB_KEY='gunner-pending-job-v2';
 let history=[];try{history=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(history))history=[];}catch{history=[]}
 history=history.filter(x=>x&&['user','gunner'].includes(x.role)&&typeof x.text==='string').slice(-12);
 for(const item of history)add(item.text,item.role==='user'?'user':'system');
-function remember(role,text){history.push({role,text:text.slice(0,600)});history=history.slice(-12);try{localStorage.setItem(KEY,JSON.stringify(history))}catch{}}
-
-async function api(body){let r;try{r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});}catch(e){throw Error('Browser network request failed. Check connection or Safari content blockers. ('+(e?.message||'network error')+')')}let d;try{d=await r.json()}catch{throw Error('Backend returned unreadable response (HTTP '+r.status+')')}if(!r.ok||d.error)throw Error(d.error||'Backend HTTP '+r.status);return d}
-btn.addEventListener('click',async()=>{
- const v=input.value.trim();if(!v||btn.disabled)return;
- if(v.length>600){add('Maximum message length is 600 characters.','system');return}
- add(v,'user');const previous=history.slice(-6);remember('user',v);input.value='';btn.disabled=true;btn.textContent='Thinking…';
- const started=Date.now();const wait=add('Connecting to Dolphin…','system');
+function remember(role,value){history.push({role,text:value.slice(0,600)});history=history.slice(-12);try{localStorage.setItem(KEY,JSON.stringify(history))}catch{}}
+function readPending(){try{const p=JSON.parse(localStorage.getItem(JOB_KEY)||'null');if(p&&typeof p.job_id==='string'&&/^[A-Za-z0-9_-]{8,128}$/.test(p.job_id)&&typeof p.job_token==='string'&&/^[0-9a-f]{64}$/.test(p.job_token))return p}catch{}return null}
+let pending=readPending(),checking=false;
+const retry=document.createElement('button'),discard=document.createElement('button'),statusActions=document.createElement('div');
+statusActions.className='actions';statusActions.style.marginTop='10px';
+retry.className='secondary';retry.textContent='Check pending reply';
+discard.className='secondary';discard.textContent='Discard pending check';
+statusActions.append(retry,discard);document.querySelector('.compose').after(statusActions);
+function controls(){
+ btn.disabled=checking||!!pending;btn.textContent=checking?'Waiting…':'Send';
+ retry.style.display=pending&&!checking?'inline-block':'none';
+ discard.style.display=pending&&!checking?'inline-block':'none';
+ statusActions.style.display=pending&&!checking?'flex':'none';
+}
+function savePending(){try{if(pending)localStorage.setItem(JOB_KEY,JSON.stringify(pending));else localStorage.removeItem(JOB_KEY)}catch{}}
+async function api(body,timeoutMs=28000){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);
+ let response;
+ try{response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store',signal:controller.signal})}
+ catch(e){throw Error(e?.name==='AbortError'?'Request timed out while checking Gunner': 'Browser network request failed: '+(e?.message||'network error'))}
+ finally{clearTimeout(timer)}
+ let d;try{d=await response.json()}catch{throw Error('Backend returned unreadable response (HTTP '+response.status+')')}
+ if(!response.ok||d.error)throw Error(d.error||'Backend HTTP '+response.status);
+ return d;
+}
+function describeStatus(d,elapsed){
+ const seconds=Math.round(elapsed/1000),state=(d.runpod_status||'').toUpperCase();
+ if(state==='IN_QUEUE'||state==='QUEUED'){
+  return seconds>=60?'RunPod is still preparing a GPU / loading Dolphin. '+seconds+'s elapsed. Your original request is saved; do not send it twice.':'RunPod is starting a GPU / loading Dolphin… '+seconds+'s';
+ }
+ if(state==='IN_PROGRESS'||state==='RUNNING'){
+  return 'Gunner is generating his answer… '+seconds+'s elapsed.';
+ }
+ return 'Waiting for RunPod ('+(state||'pending')+')… '+seconds+'s elapsed.';
+}
+async function pollPending(notice){
+ if(checking||!pending)return;
+ checking=true;controls();
+ const saved=pending,started=Number(saved.started)||Date.now();
+ const msg=notice||add('Checking Gunner’s existing request…','system');
+ const deadline=Date.now()+240000;
+ let consecutiveErrors=0;
  try{
-  const job=await api({action:'start',message:v,history:previous});
-  wait.textContent='Dolphin is processing your message…';
-  for(let i=0;i<110;i++){
-   await sleep(1200);
-   let d;try{d=await api({action:'status',job_id:job.job_id,job_token:job.job_token})}catch(e){if(i<109&&(/Browser network request failed|Worker unavailable|Dolphin status unavailable/.test(e.message))){wait.textContent='Connection interrupted; retrying status… '+Math.round((Date.now()-started)/1000)+'s';await sleep(2500);continue}throw e}
-   if(d.status==='completed'){wait.remove();add(d.answer||'No reply','system');remember('gunner',d.answer||'No reply');const sec=Math.round((Date.now()-started)/1000);const q=d.runpod_metrics?.delay_ms;const e=d.runpod_metrics?.execution_ms;add('Response time: '+sec+'s'+(typeof q==='number'?' · RunPod queue '+(q/1000).toFixed(1)+'s':'')+(typeof e==='number'?' · execution '+(e/1000).toFixed(1)+'s':''),'system');return}
-   wait.textContent='Dolphin: '+(d.runpod_status||'working')+'… '+Math.round((Date.now()-started)/1000)+'s elapsed';
+  while(Date.now()<deadline){
+   let d;
+   try{
+    d=await api({action:'status',job_id:saved.job_id,job_token:saved.job_token},28000);
+    consecutiveErrors=0;
+   }catch(err){
+    const reason=String(err?.message||err);
+    if(/Dolphin job (failed|cancelled|timed_out)|Invalid job|Unauthorized job/i.test(reason)){
+      pending=null;savePending();msg.textContent='The original RunPod job failed or expired: '+reason+'. You can send a new message.';return;
+    }
+    consecutiveErrors++;
+    msg.textContent='Connection interrupted while checking an existing job. Retrying… ('+consecutiveErrors+'/4)';
+    if(consecutiveErrors>=4)throw Error(reason);
+    await sleep(4000);continue;
+   }
+   if(d.status==='completed'){
+    pending=null;savePending();msg.remove();
+    const answer=typeof d.answer==='string'&&d.answer.trim()?d.answer:'No readable reply from Gunner';
+    add(answer,'system');remember('gunner',answer);
+    const secs=Math.round((Date.now()-started)/1000),q=d.runpod_metrics?.delay_ms,e=d.runpod_metrics?.execution_ms;
+    add('Total: '+secs+'s'+(typeof q==='number'?' · RunPod startup / queue '+(q/1000).toFixed(1)+'s':'')+(typeof e==='number'?' · generation '+(e/1000).toFixed(1)+'s':''),'system');
+    return;
+   }
+   msg.textContent=describeStatus(d,Date.now()-started);
+   await sleep(2400);
   }
-  wait.textContent='Dolphin is taking longer than expected. The demo stopped checking; this may still incur a RunPod charge.';
- }catch(e){wait.textContent='Connection error: '+e.message+' · Your message may already have been submitted; avoid resending until checked.'}
- finally{btn.disabled=false;btn.textContent='Send'}
+  msg.textContent='Still no finished reply from RunPod. The original job is saved. Tap “Check pending reply” to continue checking; this does not start a new job.';
+ }catch(e){
+  msg.textContent='Could not check Gunner’s pending job: '+e.message+'. Tap “Check pending reply” to retry without another paid submission.';
+ }finally{
+  checking=false;controls();
+ }
+}
+btn.addEventListener('click',async()=>{
+ const v=input.value.trim();if(!v||checking||pending)return;
+ if(v.length>600){add('Maximum message length is 600 characters.','system');return}
+ add(v,'user');const previous=history.slice(-6);remember('user',v);
+ input.value='';checking=true;controls();
+ const wait=add('Submitting to RunPod…','system');
+ try{
+  const job=await api({action:'start',message:v,history:previous},35000);
+  if(job.status!=='pending'||typeof job.job_id!=='string'||typeof job.job_token!=='string')throw Error('Backend did not return a trackable job');
+  pending={job_id:job.job_id,job_token:job.job_token,started:Date.now()};
+  savePending();checking=false;controls();
+  pollPending(wait);
+ }catch(e){
+  wait.textContent='Unable to submit: '+e.message+'. If the request reached RunPod before the connection failed it may still run, so avoid repeated sends.';
+  checking=false;controls();
+ }
 });
+retry.addEventListener('click',()=>pollPending());
+discard.addEventListener('click',()=>{
+ if(!pending||checking)return;
+ if(!confirm('Stop tracking this reply? The RunPod job may still be processing or billable.'))return;
+ pending=null;savePending();controls();
+ add('Stopped tracking the previous reply. This does not cancel any RunPod job.','system');
+});
+controls();
+if(pending)pollPending(add('Found an unfinished RunPod request from before this refresh. Checking the same job, not submitting a new one…','system'));
 </script></body></html>
