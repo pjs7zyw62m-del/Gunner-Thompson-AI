@@ -89,9 +89,36 @@ btn.addEventListener('click',async()=>{
  if(v.length>600){add('Maximum message length is 600 characters.','system');return}
  add(v,'user');const previous=history.slice(-6);remember('user',v);
  input.value='';checking=true;controls();
- const wait=add('Submitting to RunPod…','system');
+ const submitted=Date.now();
+ const wait=add('Connecting to Gunner…','system');
  try{
-  const job=await api({action:'start',message:v,history:previous},35000);
+  const job=await api({action:'start',message:v,history:previous},55000);
+  if(job.status==='completed'){
+   wait.remove();
+   const answer=typeof job.answer==='string'&&job.answer.trim()?job.answer:'No readable reply from Gunner';
+   add(answer,'system');remember('gunner',answer);
+   const elapsed=((Date.now()-submitted)/1000).toFixed(1);
+   add('Response time: '+elapsed+'s'+(job.provider==='featherless'?' · Featherless Dolphin':'')+(typeof job.usage?.cost_usd==='number'?' · API usage cost 
+  pending={job_id:job.job_id,job_token:job.job_token,started:Date.now()};
+  savePending();checking=false;controls();
+  pollPending(wait);
+ }catch(e){
+  wait.textContent='Unable to submit: '+e.message+'. The request might have been processed, so avoid repeated sends until checked.';
+  checking=false;controls();
+ }
+});
+retry.addEventListener('click',()=>pollPending());
+discard.addEventListener('click',()=>{
+ if(!pending||checking)return;
+ if(!confirm('Stop tracking this reply? The RunPod job may still be processing or billable.'))return;
+ pending=null;savePending();controls();
+ add('Stopped tracking the previous reply. This does not cancel any RunPod job.','system');
+});
+controls();
+if(pending)pollPending(add('Found an unfinished RunPod request from before this refresh. Checking the same job, not submitting a new one…','system'));
+</script></body></html>+job.usage.cost_usd.toFixed(5):''),'system');
+   checking=false;controls();return;
+  }
   if(job.status!=='pending'||typeof job.job_id!=='string'||typeof job.job_token!=='string')throw Error('Backend did not return a trackable job');
   pending={job_id:job.job_id,job_token:job.job_token,started:Date.now()};
   savePending();checking=false;controls();
