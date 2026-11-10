@@ -10,7 +10,7 @@ history=history.filter(x=>x&&['user','gunner'].includes(x.role)&&typeof x.text==
 for(const item of history)add(item.text,item.role==='user'?'user':'system');
 function remember(role,text){history.push({role,text:text.slice(0,600)});history=history.slice(-12);try{localStorage.setItem(KEY,JSON.stringify(history))}catch{}}
 
-async function api(body){const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json();if(!r.ok||d.error)throw Error(d.error||'Request failed');return d}
+async function api(body){let r;try{r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});}catch(e){throw Error('Browser network request failed. Check connection or Safari content blockers. ('+(e?.message||'network error')+')')}let d;try{d=await r.json()}catch{throw Error('Backend returned unreadable response (HTTP '+r.status+')')}if(!r.ok||d.error)throw Error(d.error||'Backend HTTP '+r.status);return d}
 btn.addEventListener('click',async()=>{
  const v=input.value.trim();if(!v||btn.disabled)return;
  if(v.length>600){add('Maximum message length is 600 characters.','system');return}
@@ -21,12 +21,12 @@ btn.addEventListener('click',async()=>{
   wait.textContent='Dolphin is processing your message…';
   for(let i=0;i<110;i++){
    await sleep(1200);
-   const d=await api({action:'status',job_id:job.job_id,job_token:job.job_token});
+   let d;try{d=await api({action:'status',job_id:job.job_id,job_token:job.job_token})}catch(e){if(i<109&&(/Browser network request failed|Worker unavailable|Dolphin status unavailable/.test(e.message))){wait.textContent='Connection interrupted; retrying status… '+Math.round((Date.now()-started)/1000)+'s';await sleep(2500);continue}throw e}
    if(d.status==='completed'){wait.remove();add(d.answer||'No reply','system');remember('gunner',d.answer||'No reply');const sec=Math.round((Date.now()-started)/1000);const q=d.runpod_metrics?.delay_ms;const e=d.runpod_metrics?.execution_ms;add('Response time: '+sec+'s'+(typeof q==='number'?' · RunPod queue '+(q/1000).toFixed(1)+'s':'')+(typeof e==='number'?' · execution '+(e/1000).toFixed(1)+'s':''),'system');return}
    wait.textContent='Dolphin: '+(d.runpod_status||'working')+'… '+Math.round((Date.now()-started)/1000)+'s elapsed';
   }
   wait.textContent='Dolphin is taking longer than expected. The demo stopped checking; this may still incur a RunPod charge.';
- }catch(e){wait.textContent='Connection error: '+e.message}
+ }catch(e){wait.textContent='Connection error: '+e.message+' · Your message may already have been submitted; avoid resending until checked.'}
  finally{btn.disabled=false;btn.textContent='Send'}
 });
 </script></body></html>
