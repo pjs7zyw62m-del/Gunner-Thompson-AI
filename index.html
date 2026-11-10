@@ -15,15 +15,15 @@ btn.addEventListener('click',async()=>{
  const v=input.value.trim();if(!v||btn.disabled)return;
  if(v.length>600){add('Maximum message length is 600 characters.','system');return}
  add(v,'user');const previous=history.slice(-6);remember('user',v);input.value='';btn.disabled=true;btn.textContent='Thinking…';
- const wait=add('Connecting to Dolphin…','system');
+ const started=Date.now();const wait=add('Connecting to Dolphin…','system');
  try{
   const job=await api({action:'start',message:v,history:previous});
   wait.textContent='Dolphin is processing your message…';
   for(let i=0;i<110;i++){
    await sleep(1200);
    const d=await api({action:'status',job_id:job.job_id,job_token:job.job_token});
-   if(d.status==='completed'){wait.remove();add(d.answer||'No reply','system');remember('gunner',d.answer||'No reply');return}
-   wait.textContent='Dolphin: '+(d.runpod_status||'working')+'…';
+   if(d.status==='completed'){wait.remove();add(d.answer||'No reply','system');remember('gunner',d.answer||'No reply');const sec=Math.round((Date.now()-started)/1000);const q=d.runpod_metrics?.delay_ms;const e=d.runpod_metrics?.execution_ms;add('Response time: '+sec+'s'+(typeof q==='number'?' · RunPod queue '+(q/1000).toFixed(1)+'s':'')+(typeof e==='number'?' · execution '+(e/1000).toFixed(1)+'s':''),'system');return}
+   wait.textContent='Dolphin: '+(d.runpod_status||'working')+'… '+Math.round((Date.now()-started)/1000)+'s elapsed';
   }
   wait.textContent='Dolphin is taking longer than expected. The demo stopped checking; this may still incur a RunPod charge.';
  }catch(e){wait.textContent='Connection error: '+e.message}
