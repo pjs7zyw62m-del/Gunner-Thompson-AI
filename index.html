@@ -62,6 +62,20 @@ async function ratePhoto(id){const who=prompt('Whose score? Enter: user or gunne
 async function hashFile(file){const bytes=await file.arrayBuffer();const digest=await crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('')}
 $('upload').onclick=async()=>{if(!activeUser)return;const items=[...$('files').files];if(!items.length){status('uploadStatus','Select one or more photographs first.',true);return} $('upload').disabled=true;let good=0;const errors=[];for(const file of items){try{if(!['image/jpeg','image/png','image/webp'].includes(file.type))throw Error('Only JPEG, PNG, or WEBP allowed');if(file.size>20*1024*1024)throw Error('File exceeds 20 MB');status('uploadStatus',`Uploading ${file.name} (${good+1} of ${items.length})...`);const hash=await hashFile(file);const check=await sb.from('gunner_photos').select('id').eq('file_hash',hash).limit(1);if(check.error)throw check.error;if(check.data.length)throw Error('Duplicate file already in collection');const ext=({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[file.type];const path=`${activeUser.id}/${crypto.randomUUID()}.${ext}`;const uploaded=await sb.storage.from(BUCKET).upload(path,file,{contentType:file.type,upsert:false});if(uploaded.error)throw uploaded.error;const saved=await sb.from('gunner_photos').insert({owner_id:activeUser.id,storage_path:path,file_hash:hash,title:file.name.replace(/\.[^.]+$/,'')});if(saved.error)throw new Error(`File uploaded but catalog entry failed (${path}): ${errMsg(saved.error)}`);good++}catch(e){errors.push(`${file.name}: ${errMsg(e)}`)}}$('upload').disabled=false;$('files').value='';status('uploadStatus',`Saved ${good} of ${items.length}.`+(errors.length?'\n'+errors.join('\n'):''),errors.length>0);await loadPhotos()};
 // Authenticated asynchronous chat: one paid RunPod job, then status-only polls.
+// Share only non-sensitive content from the currently visible archive view.
+function gunnerCurrentPageContext(){
+ const source=document.querySelector('main')||document.querySelector('.shell');
+ let text='';
+ if(source){
+  const clone=source.cloneNode(true);
+  clone.querySelectorAll('input,textarea,select,form,script,style,[hidden],[aria-hidden="true"],[data-gunner-private]').forEach(el=>el.remove());
+  text=(clone.textContent||'').replace(/\\s+/g,' ').trim().slice(0,4500);
+ }
+ return {schema_version:1,page:{
+  title:document.title.slice(0,120),path:location.pathname.slice(0,240),
+  origin:location.origin,visible_text:text
+ }};
+}
 const GUNNER_CHAT_FUNCTION = 'Gunner-Thompson-AI';
 let chatBusy = false;
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -131,7 +145,7 @@ $('gunnerChatForm').addEventListener('submit',async event=>{
   const sessionResult=await sb.auth.getSession();
   if(sessionResult.error)throw sessionResult.error;
   if(!sessionResult.data.session?.access_token)throw Error('Your session expired. Sign in again.');
-  const job=await invokeChat({action:'start',message});
+  const job=await invokeChat({action:'start',message,page_context:gunnerCurrentPageContext()});
   if(!job?.job_id||!job?.job_token)throw Error('RunPod did not provide a job reference. Do not retry until checked.');
   localStorage.setItem(pendingKey(),JSON.stringify({job_id:job.job_id,job_token:job.job_token}));
   await followJob(job);
