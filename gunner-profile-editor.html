@@ -101,7 +101,7 @@ hr{border:0;border-top:1px solid #35404a;margin:20px 0}.toolbar{display:flex;ali
 <script>
 (function(){
 'use strict';
-const URL='https://shdebjikbdanvmlehvda.supabase.co';
+const PROJECT_URL='https://shdebjikbdanvmlehvda.supabase.co';
 const KEY='sb_publishable_otGGHvOwvHdqqGkAi4P1pg_MRElszia';
 const BUCKET='gunner-military-photos';
 const NOTEBOOK='https://supabase.com/dashboard/project/shdebjikbdanvmlehvda/explorer/notebook/5707af1e-8b3b-47a4-96b1-34b5c03ebaeb';
@@ -260,7 +260,7 @@ function exportBackup(){
  if(!draft)return;
  const backup={type:'gunner-thompson-profile-backup',exported_at:new Date().toISOString(),profile:clone(draft),memories:clone(memories),photos:photos.map(p=>{const x=clone(p);return x}),preference_history:clone(preferences),visual_triggers:clone(triggers),military_catalog_record_counts:ARCHIVE};
  const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
- const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Gunner_Thompson_Profile_Backup_'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ const url=window.URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Gunner_Thompson_Profile_Backup_'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>window.URL.revokeObjectURL(url),1000);
  status('Downloaded a local JSON backup. Keep it private: it includes Gunner’s character data.');
 }
 function handleField(e){
@@ -305,9 +305,9 @@ function handleClick(e){
 }
 async function startup(){
  if(!window.supabase?.createClient){loginStatus('Supabase JS could not load. Check your connection and reload.',true);return}
- sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+ sb=window.supabase.createClient(PROJECT_URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
  sb.auth.onAuthStateChange((_evt,session)=>setTimeout(()=>onUser(session?.user||null),0));
- try{const {data,error}=await sb.auth.getUser();if(error&&error.name!=='AuthSessionMissingError')throw error;await onUser(data?.user||null)}
+ try{const {data,error}=await sb.auth.getUser();if(error && error.name!=='AuthSessionMissingError' && error.code!=='session_not_found')throw error;await onUser(data?.user||null)}
  catch(e){loginStatus('Unable to confirm login: '+errText(e),true)}
 }
 $('loginForm').addEventListener('submit',async e=>{
