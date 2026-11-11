@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex,nofollow">
+<title>Gunner Thompson | Character Profile Studio</title>
+<style>
+:root{color-scheme:dark;--bg:#07090c;--panel:#13171dcf;--panel2:#171c23;--line:#35404b;--line2:#ffffff18;--text:#eceff4;--muted:#9fa9b5;--sub:#717e8b;--red:#d74953;--red2:#67232f;--silver:#cbd2db;--good:#83c2a7}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 52% -220px,#472029 0,transparent 46%),linear-gradient(145deg,#090b10,#0d1117 55%,#07080a);color:var(--text);font:14px/1.52 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}a{color:#e2e5eb}a:hover{text-decoration:underline}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px max(20px,calc((100vw - 1450px)/2));border-bottom:1px solid #ffffff15;background:#0a0d12f0;backdrop-filter:blur(24px)}
+.brand{font-weight:800;letter-spacing:.2em;font-size:13px}.brand small{display:block;color:#9eabb8;font-weight:500;font-size:10px;letter-spacing:.22em;margin-top:3px}
+.topRight{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.pill{padding:7px 11px;border:1px solid #45515e;border-radius:99px;font-size:11px;color:var(--silver);white-space:nowrap}
+.button{border:1px solid #616b76;background:linear-gradient(#e5e8ed,#b8bec8);color:#11151c;border-radius:12px;font-weight:750;padding:10px 16px;min-height:40px}
+.button.secondary{background:#1c222c;color:#e1e6ed;border-color:#4c5867}.button.ghost{background:transparent;border-color:#35404c;color:#b9c4cf}.button.red{background:#57232c;border-color:#9b4551;color:#f9dadd}
+.button:hover:not(:disabled){filter:brightness(1.1)}.button.small{padding:7px 10px;min-height:34px;font-size:12px}
+.shell{max-width:1450px;margin:auto;padding:26px 20px 70px}.panel{border:1px solid var(--line);border-radius:24px;background:var(--panel);backdrop-filter:blur(20px);box-shadow:0 20px 80px #0004}
+.login{max-width:500px;margin:8vh auto 0;padding:32px}.loginHead{text-transform:uppercase;letter-spacing:.24em;font-size:11px;color:#d36c79;font-weight:800}.login h1{font-size:30px;margin:10px 0 10px}.login p,.muted{color:var(--muted)}.login p{margin-bottom:20px}
+input[type="email"],input[type="password"],input[type="text"],input[type="number"],select,textarea{width:100%;color:var(--text);background:#0c1016;border:1px solid #43505e;border-radius:12px;outline:0;padding:12px 13px}
+input:focus,select:focus,textarea:focus{border-color:#bf848d;box-shadow:0 0 0 3px #a44d5b22}
+label{display:block;color:#c7d0db;margin:14px 0 7px;font-weight:650;font-size:12px}
+textarea{resize:vertical;line-height:1.65;min-height:190px}.longText{min-height:390px;font-size:13px}.fRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.fRow>.grow{flex:1;min-width:130px}
+.notice{padding:13px 15px;border-radius:14px;border:1px solid #775c4a;background:#30251e;color:#e3c6a4;font-size:12px}.status{min-height:18px;margin-top:10px;color:#b7c5cf;font-size:12px;white-space:pre-wrap}.status.bad{color:#ff9ba5}.hide{display:none!important}
+.hero{padding:27px 30px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;background:linear-gradient(125deg,#27222ae8,#171d26e8 55%,#12151aec)}
+.eyebrow{font-size:10px;color:#d86f7b;text-transform:uppercase;letter-spacing:.25em;font-weight:850;margin-bottom:7px}.hero h1{font-size:clamp(26px,4vw,44px);line-height:1.13;margin:0 0 10px;letter-spacing:-.045em}.hero p{color:#aeb7c3;margin:0;max-width:640px}.stats{display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:10px;min-width:min(470px,100%)}.stat{background:#0b0f16b9;border:1px solid #58606b55;border-radius:16px;padding:15px}.stat strong{display:block;color:#eaeff7;font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}.stat span{font-size:11px;color:#aeb9c4}.stat.emph strong{color:#f1aeb6}
+.workspace{display:grid;grid-template-columns:235px minmax(0,1fr);gap:18px;margin-top:19px;align-items:start}
+.nav{padding:14px;position:sticky;top:88px}.navTitle{font-size:10px;letter-spacing:.18em;color:#8595a6;padding:10px 12px;font-weight:850}.navbtn{display:block;width:100%;border:1px solid transparent;text-align:left;color:#b9c4d0;padding:11px 12px;margin:3px 0;border-radius:12px;background:transparent;font-weight:680}.navbtn.active{color:#fff;background:#48252e9e;border-color:#884654}.navbtn:hover{background:#26303a}.navbtn span{float:right;color:#8fa1b5;font-weight:500}
+.main{padding:27px;min-width:0}.main h2{margin:0 0 7px;font-size:25px;letter-spacing:-.03em}.main h3{margin:20px 0 8px;font-size:17px}.sectionHint{margin:0 0 20px;color:var(--muted);font-size:13px}
+.card{background:#10151b;border:1px solid #38434d;border-radius:17px;padding:18px;margin:12px 0}.card h3{margin:0 0 9px}.kicker{font-size:10px;color:#9eaab8;text-transform:uppercase;letter-spacing:.14em;font-weight:800;margin:0 0 5px}
+.bigNumber{font-size:30px;font-weight:850;letter-spacing:-.05em}.mutedSmall{font-size:12px;color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px}.tile{background:#111820;border:1px solid #3a4653;border-radius:16px;padding:17px}.tile strong{font-size:20px;display:block;margin-top:4px}
+.traitRow{display:grid;grid-template-columns:minmax(140px,1fr) minmax(125px,230px) auto;align-items:center;gap:14px;padding:12px 4px;border-bottom:1px solid #303943}
+.traitRow:last-child{border:0}.traitName{font-weight:700;overflow-wrap:anywhere}.traitKey{display:block;font-size:11px;color:#8998a8;overflow-wrap:anywhere;font-weight:400}.traitNum{max-width:130px}.mini{padding:8px 12px;border:1px solid #465462;background:#222c36;border-radius:9px;color:#e8edf1;font-weight:800}.mini:hover{border-color:#ad7f87}
+.stripe{height:4px;background:#35424c;border-radius:6px;overflow:hidden;margin:6px 0 0}.stripe>div{height:100%;border-radius:6px;background:linear-gradient(90deg,#91616b,#e07f8c)}
+.secCard{border:1px solid #3c4650;border-radius:17px;background:#11161d;padding:19px;margin-bottom:12px}.secCard textarea{min-height:160px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:13px}.record{margin:15px 0;padding:17px;border:1px solid #39434e;background:#0e1319;border-radius:16px}
+.photoGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}.photoCard{background:#10151b;border:1px solid #3a4651;border-radius:16px;overflow:hidden}.photoCard img{width:100%;height:220px;object-fit:contain;display:block;background:#050609}.photoCard .details{padding:14px}.pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#090d12;border:1px solid #343d47;border-radius:12px;padding:14px;font-size:12px;color:#c1ccd7}
+hr{border:0;border-top:1px solid #35404a;margin:20px 0}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 18px}.stickyBtns{display:flex;gap:8px;flex-wrap:wrap}.tag{border:1px solid #4b5863;color:#aab9c7;font-size:11px;border-radius:99px;padding:4px 9px;display:inline-block}.tag.red{color:#eab1ba;border-color:#7e4550}.corner{font-size:11px;color:#71808c}
+.archiveRow{display:flex;gap:15px;justify-content:space-between;padding:12px 8px;border-bottom:1px solid #38424c}.archiveRow:last-child{border:0}
+@media(max-width:850px){.top{padding:13px 17px}.shell{padding:16px 12px 45px}.workspace{grid-template-columns:1fr}.nav{position:static;display:flex;overflow-x:auto;gap:6px;border-radius:16px;scrollbar-width:thin;padding:9px}.navTitle{display:none}.navbtn{white-space:nowrap;width:auto;flex:0 0 auto;margin:0}.navbtn span{display:none}.hero{padding:21px}.stats{width:100%}.main{padding:20px}.traitRow{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+@media(max-width:450px){.brand{font-size:11px}.topRight .pill{display:none}.hero .stats{grid-template-columns:repeat(3,minmax(0,1fr))}.stat{padding:12px 8px}.stat strong{font-size:24px}.stat span{font-size:10px}.login{padding:24px}.main{padding:17px}.toolbar{align-items:stretch}.stickyBtns .button{flex:1}}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="brand">BLACKCELL <small>GUNNER THOMPSON · PROFILE STUDIO</small></div>
+<div class="topRight">
+<span class="pill" id="authLabel">PRIVATE · SIGN IN REQUIRED</span>
+<a class="button ghost small" href="./index.html">← Chat</a>
+<button id="signout" class="button ghost small hide">Sign out</button>
+</div>
+</header>
+<main class="shell">
+<section id="loginView" class="panel login">
+<div class="loginHead">Private administration</div><h1>Gunner's Complete Profile</h1>
+<p>Sign in with the Supabase account that owns Gunner's data. The page never contains a service-role key, and only the authenticated owner can load or save records.</p>
+<form id="loginForm">
+<label for="email">Supabase account email</label><input id="email" type="email" autocomplete="username" required placeholder="you@example.com">
+<label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="Account password">
+<div class="fRow" style="margin-top:21px"><button id="loginBtn" class="button" type="submit">Unlock profile</button><a href="https://supabase.com/dashboard/project/shdebjikbdanvmlehvda" rel="noopener noreferrer" target="_blank">Supabase dashboard</a></div>
+</form><div class="status" id="loginStatus"></div>
+<div class="notice" style="margin-top:22px">This editor saves to Gunner's owner-protected Supabase profile. The public chat currently has a separate backend personality prompt; editing this page does not automatically rewrite that deployed prompt.</div>
+</section>
+<section id="appView" class="hide">
+<div class="panel hero">
+<div><div class="eyebrow">Character Control · Full Database Profile</div><h1 id="heroName">Gunner Thompson</h1><p>View every saved character-definition field. Expand traits, add background and rules, edit memories, and export a complete backup before making changes.</p><div style="margin-top:13px" class="corner" id="lastUpdated"></div></div>
+<div class="stats"><div class="stat emph"><strong id="statUniform">100/10</strong><span>Uniform fixation</span></div><div class="stat"><strong id="statForced">100/10</strong><span>Forced-uniform fiction</span></div><div class="stat"><strong id="statConfinement">100/10</strong><span>Confinement fiction</span></div></div>
+</div>
+<div class="workspace">
+<nav class="panel nav" id="tabs" aria-label="Profile sections">
+<div class="navTitle">PROFILE SECTIONS</div>
+<button class="navbtn active" data-tab="overview">Overview</button>
+<button class="navbtn" data-tab="definition">Complete Character</button>
+<button class="navbtn" data-tab="background">Life &amp; Background</button>
+<button class="navbtn" data-tab="voice">Speech &amp; Behavior</button>
+<button class="navbtn" data-tab="traits">Intensity &amp; Traits</button>
+<button class="navbtn" data-tab="sections">Added Sections</button>
+<div class="navTitle">CLOUD RECORDS</div>
+<button class="navbtn" data-tab="memories">Saved Memories</button>
+<button class="navbtn" data-tab="photos">Photo Archive</button>
+<button class="navbtn" data-tab="preferences">Preference History</button>
+<button class="navbtn" data-tab="triggers">Visual Triggers</button>
+<button class="navbtn" data-tab="research">Military Research</button>
+</nav>
+<section class="panel main">
+<div class="toolbar"><span id="draftFlag" class="tag">CLOUD DATA LOADED</span><div class="stickyBtns">
+<button class="button ghost small" id="exportBtn">Export backup</button>
+<button class="button ghost small" id="importBtn">Import profile draft</button>
+<input type="file" id="importFile" accept=".json,application/json" class="hide">
+<button class="button" id="saveBtn">Save profile to cloud</button></div></div>
+<div class="notice" id="editorNotice">Changes are drafts until you press <b>Save profile to cloud</b>. Cloud saving edits Gunner's profile record; the public chatbot still uses its separately deployed prompt.</div>
+<div id="tabContent" style="margin-top:22px"></div>
+<div class="status" id="appStatus"></div>
+</section>
+</div>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.80.0/dist/umd/supabase.min.js"></script>
+<script>
+(function(){
+'use strict';
+const URL='https://shdebjikbdanvmlehvda.supabase.co';
+const KEY='sb_publishable_otGGHvOwvHdqqGkAi4P1pg_MRElszia';
+const BUCKET='gunner-military-photos';
+const NOTEBOOK='https://supabase.com/dashboard/project/shdebjikbdanvmlehvda/explorer/notebook/5707af1e-8b3b-47a4-96b1-34b5c03ebaeb';
+const ARCHIVE=[['Military history and profiles',61],['Military training and skills',235],['Boot-camp accounts',9],['Issued uniform and gear references',19],['Fallen servicemen',5],['Brigs and military corrections',32]];
+const $=id=>document.getElementById(id);
+const esc=v=>String(v===null||v===undefined?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nice=k=>String(k).replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+const n=v=>Number.isFinite(Number(v))?Number(v):0;
+const clone=x=>JSON.parse(JSON.stringify(x));
+const dateLabel=x=>x?new Date(x).toLocaleString():'Not yet saved';
+const errText=e=>(e&&e.message?e.message:String(e));
+let sb,user=null,record=null,draft=null,memories=[],photos=[],preferences=[],triggers=[],signedPhotos={};
+let tab='overview',dirty=false,loading=false;
+function status(msg,bad){$('appStatus').textContent=msg||'';$('appStatus').classList.toggle('bad',!!bad)}
+function loginStatus(msg,bad){$('loginStatus').textContent=msg||'';$('loginStatus').classList.toggle('bad',!!bad)}
+function changeDirty(){dirty=true;$('draftFlag').textContent='UNSAVED CHANGES';$('draftFlag').classList.add('red')}
+function cleanDirty(){dirty=false;$('draftFlag').textContent='ALL PROFILE FIELDS SAVED';$('draftFlag').classList.remove('red')}
+function getSections(){if(!Array.isArray(draft.settings.editor_sections))draft.settings.editor_sections=[];return draft.settings.editor_sections}
+function panel(title,hint,body){return '<h2>'+esc(title)+'</h2><p class="sectionHint">'+esc(hint)+'</p>'+body}
+function fieldInput(field,label,hint){const val=draft[field]||'';return '<label for="profileField">'+esc(label)+'</label><p class="mutedSmall">'+esc(hint)+'</p><textarea id="profileField" data-field="'+esc(field)+'" class="longText" spellcheck="true">'+esc(val)+'</textarea><div class="fRow" style="justify-content:space-between;margin:7px 0 0"><span class="mutedSmall">'+String(val.length)+' characters · add as much detail as you need</span><span class="tag">COMPLETE CLOUD FIELD</span></div>'}
+function renderOverview(){
+ const s=draft.settings;
+ const tile=(a,b)=>'<div class="tile"><span class="mutedSmall">'+esc(a)+'</span><strong>'+esc(b)+'</strong></div>';
+ return panel('Character Overview','Current Supabase profile — these are saved fields, not a short summary.',
+ '<div class="tiles">'+tile('Character',draft.character_name||'Gunner Thompson')+tile('Fictional year',s.character_year||'Not set')+tile('Uniform fixation',(s.uniform_fixation_intensity??0)+'/10')+tile('Forced-uniform fiction',(s.forced_uniform_fantasy_intensity??0)+'/10')+tile('Confinement fiction',(s.confinement_fantasy_intensity??0)+'/10')+tile('Existing memories',memories.length)+tile('Stored photos',photos.length)+tile('Visual triggers',triggers.length)+'</div>'+
+ '<div class="card"><h3>Profile snapshot</h3><p class="mutedSmall">The complete text is available under the tabs. Nothing has been shortened or overwritten.</p><div class="tiles">'+tile('Character definition',draft.character_definition.length+' characters')+tile('Protected background',draft.protected_background.length+' characters')+tile('Speaking style',draft.speaking_style.length+' characters')+tile('Individual settings',Object.keys(s).filter(k=>k!=='editor_sections').length)+tile('Extra sections',getSections().length)+'</div></div>'+
+ '<div class="card"><h3>How changes work</h3><div class="notice">Only the authenticated profile owner may save changes. Edits are saved to <b>gunner_personality</b> in Supabase. Gunner&#39;s public chat uses a separate deployed prompt, so profile saves alone do not immediately update public replies. His API credentials are never shown here.</div></div>');
+}
+function renderText(field,label,hint){return panel(label,hint,'<div class="card">'+fieldInput(field,label,hint)+'</div>')}
+function renderTraits(){
+ let keys=Object.keys(draft.settings).filter(k=>k!=='editor_sections').sort((a,b)=>a.localeCompare(b));
+ const rows=keys.map(key=>{
+  const v=draft.settings[key],type=typeof v;
+  let input='';
+  if(type==='number'){
+   input='<div><div class="fRow"><button class="mini" data-stepkey="'+esc(key)+'" data-step="-10" title="Decrease by 10">−10</button><input class="traitNum" type="number" step="1" data-setting="'+esc(key)+'" value="'+esc(v)+'" aria-label="'+esc(key)+' intensity"><button class="mini" data-stepkey="'+esc(key)+'" data-step="10" title="Increase by 10">+10</button></div><div class="stripe"><div style="width:'+Math.max(0,Math.min(100,n(v)))+'%"></div></div></div>';
+  } else if(type==='boolean')input='<div><label style="margin:0"><input type="checkbox" data-setting="'+esc(key)+'" '+(v?'checked':'')+' style="width:auto;margin-right:9px">Enabled</label></div>';
+  else input='<div><input type="text" data-setting="'+esc(key)+'" value="'+esc(typeof v==='string'?v:JSON.stringify(v))+'" aria-label="'+esc(key)+'"></div>';
+  return '<div class="traitRow"><div><span class="traitName">'+esc(nice(key))+'</span><span class="traitKey">'+esc(key)+'</span></div>'+input+'<button class="button ghost small" data-remove-setting="'+esc(key)+'" title="Remove trait">Remove</button></div>';
+ }).join('');
+ return panel('Intensity & Traits','Every current setting is editable. Numerical intensities can exceed 10, including 100/10 or more. Add any custom trait you want.',
+ '<div class="card"><h3>Existing personality controls</h3>'+rows+'</div>'+
+ '<div class="card"><h3>Add a new personality trait</h3><div class="two"><div><label for="newTrait">Trait key (letters, numbers, underscores)</label><input id="newTrait" type="text" placeholder="e.g. military_uniform_obsession"></div><div><label for="newTraitType">Value type</label><select id="newTraitType"><option value="number">Number / intensity</option><option value="text">Text</option><option value="boolean">Yes / no</option></select></div></div><div class="fRow" style="margin-top:12px"><button class="button secondary" data-action="addtrait">+ Add new trait</button><span class="mutedSmall">New settings are saved in the profile&#39;s JSON settings field.</span></div></div>');
+}
+function renderSections(){
+ const sec=getSections().map((x,i)=>'<div class="secCard"><div class="fRow" style="justify-content:space-between"><span class="tag">CUSTOM SECTION '+(i+1)+'</span><button class="button red small" data-remove-section="'+i+'">Remove section</button></div><label>Section title</label><input type="text" data-sec-index="'+i+'" data-sec-field="title" value="'+esc(x.title||'')+'" placeholder="e.g. Childhood, Marine experiences, habits"><label>Detailed notes / instructions</label><textarea data-sec-index="'+i+'" data-sec-field="content" placeholder="Write character details, habits, backstory, reactions, relationships, or other guidance...">'+esc(x.content||'')+'</textarea></div>').join('');
+ return panel('Custom Profile Sections','Add as many new profile sections as needed without deleting any current character information.',
+ sec+'<button class="button secondary" data-action="addsection">+ Add new section</button><p class="mutedSmall">Stored under settings.editor_sections in Supabase, with full text retained.</p>');
+}
+function renderMemories(){
+ const cards=memories.map((m,i)=>'<div class="record"><div class="fRow" style="justify-content:space-between"><span class="tag">MEMORY '+(i+1)+'</span><span class="mutedSmall">'+esc(dateLabel(m.updated_at))+'</span></div><div class="two"><div><label>Memory title</label><input type="text" data-memory="'+esc(m.id)+'" data-mf="title" value="'+esc(m.title||'')+'"></div><div><label>Category</label><input type="text" data-memory="'+esc(m.id)+'" data-mf="category" value="'+esc(m.category||'')+'"></div></div><label>Complete memory</label><textarea data-memory="'+esc(m.id)+'" data-mf="content">'+esc(m.content||'')+'</textarea><div class="fRow" style="justify-content:space-between"><label style="margin:0"><input style="width:auto" type="checkbox" data-memory="'+esc(m.id)+'" data-mf="is_protected" '+(m.is_protected?'checked':'')+'> Protected</label><button class="button secondary small" data-save-memory="'+esc(m.id)+'">Save this memory</button></div></div>').join('');
+ return panel('Saved Memories','Cloud memories are separate from the main character definition. Save each changed memory individually.',
+ '<div class="card"><h3>Add a new memory</h3><div class="two"><div><label>Title</label><input id="newMemoryTitle" type="text" placeholder="Memory title"></div><div><label>Category</label><input id="newMemoryCategory" type="text" value="character"></div></div><label>Content</label><textarea id="newMemoryContent" placeholder="New factual or fictional character memory..."></textarea><div class="fRow"><button class="button secondary" data-action="addmemory">Save new memory to cloud</button><span class="mutedSmall">New memories are protected by default.</span></div></div>'+cards);
+}
+function renderPhotos(){
+ const cards=photos.map(p=>'<div class="photoCard">'+(signedPhotos[p.id]?'<img src="'+esc(signedPhotos[p.id])+'" alt="'+esc(p.title||'Gunner photo')+'" loading="lazy">':'<div style="height:190px;display:grid;place-items:center;color:#8292a1">Private photograph</div>')+'<div class="details"><strong>'+esc(p.title||'Untitled')+'</strong><div class="mutedSmall">'+esc(p.military_branch||'Branch unclassified')+' · '+esc(p.uniform_type||'Uniform not specified')+'</div><p class="mutedSmall">'+esc(p.notes||'No notes')+'</p><span class="tag">'+(p.is_favorite?'FAVORITE':'SAVED PRIVATE PHOTO')+'</span></div></div>').join('');
+ return panel('Private Photo Archive','Photographs remain in private Supabase Storage. Signed previews are temporary and available only after owner authentication.',
+ '<div class="photoGrid">'+(cards||'<div class="card">No photos saved.</div>')+'</div><div class="card"><p class="mutedSmall">Photo metadata is displayed here. Uploading, cropping and detailed rating are available in the separate private photo archive.</p><a href="./private-archive.html">Open private photo archive →</a></div>');
+}
+function renderPreferences(){
+ const cards=preferences.map(x=>'<div class="record"><div class="fRow" style="justify-content:space-between"><strong>'+esc(nice(x.profile_type))+' — version '+esc(x.version)+'</strong><span class="mutedSmall">'+esc(dateLabel(x.created_at))+'</span></div><p class="mutedSmall">'+esc(x.change_reason||'')+' · '+esc(x.changed_by||'')+'</p><div class="pre">'+esc(JSON.stringify(x.preferences,null,2))+'</div></div>').join('');
+ return panel('Preference History','A read-only audit trail. New character preferences belong in Traits or the main profile fields.',
+ cards||'<div class="card">No preference history yet.</div>');
+}
+function renderTriggers(){
+ const cards=triggers.map(x=>'<div class="record"><strong>'+esc(x.feature_name)+'</strong><div class="mutedSmall">Selected by '+esc(x.selected_by)+' · Photo ID '+esc(x.photo_id)+'</div><div class="pre">'+esc(JSON.stringify({x:x.x,y:x.y,width:x.width,height:x.height,notes:x.notes},null,2))+'</div></div>').join('');
+ return panel('Visual Triggers','Precise photo-region triggers attached to images. This view is read-only until a visual selection tool is added.',
+ cards||'<div class="card"><h3>No visual triggers saved yet</h3><p class="mutedSmall">You can still add character preferences and photo notes elsewhere in the editor.</p></div>');
+}
+function renderResearch(){
+ return panel('Military Research Catalog','The saved military archive is separate from character settings and stays private in Supabase.',
+ '<div class="card"><h3>Research records by collection</h3>'+ARCHIVE.map(x=>'<div class="archiveRow"><span>'+esc(x[0])+'</span><strong>'+x[1]+'</strong></div>').join('')+'</div><div class="card"><h3>Complete source catalog</h3><p class="mutedSmall">361 saved research records. Many are summaries and links, not original downloaded manuals or images. Currently the live chat retrieves only the military knowledge and training tables.</p><a class="button secondary" href="'+esc(NOTEBOOK)+'" target="_blank" rel="noopener noreferrer">Open all six Supabase research tables ↗</a></div>');
+}
+function refreshHeader(){
+ $('heroName').textContent=draft.character_name||'Gunner Thompson';
+ $('statUniform').textContent=String(draft.settings.uniform_fixation_intensity??0)+'/10';
+ $('statForced').textContent=String(draft.settings.forced_uniform_fantasy_intensity??0)+'/10';
+ $('statConfinement').textContent=String(draft.settings.confinement_fantasy_intensity??0)+'/10';
+ $('lastUpdated').textContent='Cloud updated: '+dateLabel(record.updated_at);
+}
+function render(){
+ if(!draft)return;
+ const tabs={overview:renderOverview,definition:()=>renderText('character_definition','Complete Character Definition','The full raw saved character definition, including all previous refinements. Edit, append or rewrite freely.'),background:()=>renderText('protected_background','Life & Protected Background','The canonical biography: birth date, occupations, established history, and private context.'),voice:()=>renderText('speaking_style','Speech & Behavior','Exactly how Gunner speaks, reacts, swears, jokes, shows emotion, and avoids robotic repetition.'),traits:renderTraits,sections:renderSections,memories:renderMemories,photos:renderPhotos,preferences:renderPreferences,triggers:renderTriggers,research:renderResearch};
+ $('tabContent').innerHTML=(tabs[tab]||tabs.overview)();
+ document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+ refreshHeader();
+}
+async function getOwnerData(){
+ if(!user)return;
+ loading=true;status('Loading owner-protected cloud records…');
+ try{
+  const r=await sb.from('gunner_personality').select('*').eq('owner_id',user.id).eq('character_name','Gunner Thompson').maybeSingle();
+  if(r.error)throw r.error;
+  if(!r.data){$('appView').classList.add('hide');$('loginView').classList.remove('hide');loginStatus('Signed in, but this account does not own the Gunner Thompson profile. Sign in with the original owner account.',true);return}
+  record=r.data;draft=clone(record);draft.settings=draft.settings&&typeof draft.settings==='object'?draft.settings:{};
+  const responses=await Promise.all([
+   sb.from('gunner_memories').select('*').eq('owner_id',user.id).order('created_at',{ascending:false}).limit(250),
+   sb.from('gunner_photos').select('id,title,military_branch,country,uniform_type,storage_path,notes,is_favorite,created_at').eq('owner_id',user.id).is('deleted_at',null).order('created_at',{ascending:false}).limit(250),
+   sb.from('gunner_preference_history').select('*').eq('owner_id',user.id).order('created_at',{ascending:false}).limit(250),
+   sb.from('gunner_visual_triggers').select('*').eq('owner_id',user.id).order('created_at',{ascending:false}).limit(250)
+  ]);
+  memories=responses[0].data||[];photos=responses[1].data||[];preferences=responses[2].data||[];triggers=responses[3].data||[];
+  let errors=responses.filter(r=>r.error).map(r=>r.error.message);
+  signedPhotos={};
+  if(photos.length){
+   const signed=await Promise.all(photos.slice(0,40).map(p=>sb.storage.from(BUCKET).createSignedUrl(p.storage_path,300)));
+   signed.forEach((r,i)=>{if(r.data&&r.data.signedUrl)signedPhotos[photos[i].id]=r.data.signedUrl});
+  }
+  $('loginView').classList.add('hide');$('appView').classList.remove('hide');
+  cleanDirty();render();
+  status(errors.length?'Profile loaded. Some related records could not load: '+errors.join('; '):'Profile and related owner records loaded from Supabase.',!!errors.length);
+ }catch(e){status('Could not load profile: '+errText(e),true);loginStatus('Could not load profile: '+errText(e),true)}
+ finally{loading=false}
+}
+async function onUser(newUser){
+ if(user&&newUser&&user.id===newUser.id)return;
+ user=newUser||null;
+ $('authLabel').textContent=user?'OWNER SIGNED IN':'PRIVATE · SIGN IN REQUIRED';
+ $('signout').classList.toggle('hide',!user);
+ if(!user){record=null;draft=null;memories=[];photos=[];preferences=[];triggers=[];$('appView').classList.add('hide');$('loginView').classList.remove('hide');return}
+ await getOwnerData();
+}
+async function saveProfile(){
+ if(!user||!record||!draft||loading)return;
+ const next={character_name:draft.character_name,character_definition:draft.character_definition,speaking_style:draft.speaking_style,protected_background:draft.protected_background,settings:draft.settings,updated_at:new Date().toISOString()};
+ if(!next.character_definition.trim()||!next.speaking_style.trim()||!next.protected_background.trim()){status('Character, speaking style, and background fields cannot be blank.',true);return}
+ if(!confirm('Save your edited profile and settings to Supabase? This does not change the separately deployed public-chat prompt.'))return;
+ $('saveBtn').disabled=true;status('Saving owner-protected profile…');
+ try{
+  const q=await sb.from('gunner_personality').update(next).eq('id',record.id).eq('owner_id',user.id).eq('updated_at',record.updated_at).select('*').maybeSingle();
+  if(q.error)throw q.error;
+  if(!q.data)throw Error('The profile changed elsewhere before this save. Export your draft, then reload the page to reconcile it.');
+  record=q.data;draft=clone(record);cleanDirty();render();status('Saved successfully to Supabase at '+dateLabel(record.updated_at));
+ }catch(e){status('Save failed: '+errText(e),true)}
+ finally{$('saveBtn').disabled=false}
+}
+async function saveMemory(id){
+ if(!user)return;
+ const row=memories.find(m=>String(m.id)===String(id));
+ if(!row)return;
+ if(!row.title.trim()||!row.content.trim()){status('Memory title and content are required.',true);return}
+ try{
+  const {data,error}=await sb.from('gunner_memories').update({title:row.title,content:row.content,category:row.category||'general',is_protected:!!row.is_protected,updated_at:new Date().toISOString()}).eq('id',id).eq('owner_id',user.id).select('*').single();
+  if(error)throw error;Object.assign(row,data);status('Saved memory: '+row.title);render();
+ }catch(e){status('Memory save failed: '+errText(e),true)}
+}
+async function addMemory(){
+ const title=$('newMemoryTitle')?.value.trim(),content=$('newMemoryContent')?.value.trim(),category=$('newMemoryCategory')?.value.trim()||'character';
+ if(!title||!content){status('Enter a memory title and content first.',true);return}
+ try{
+  const {data,error}=await sb.from('gunner_memories').insert({owner_id:user.id,title,content,category,source:'manual',is_protected:true}).select('*').single();
+  if(error)throw error;memories.unshift(data);render();status('New protected memory saved to cloud.');
+ }catch(e){status('Could not create memory: '+errText(e),true)}
+}
+function exportBackup(){
+ if(!draft)return;
+ const backup={type:'gunner-thompson-profile-backup',exported_at:new Date().toISOString(),profile:clone(draft),memories:clone(memories),photos:photos.map(p=>{const x=clone(p);return x}),preference_history:clone(preferences),visual_triggers:clone(triggers),military_catalog_record_counts:ARCHIVE};
+ const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Gunner_Thompson_Profile_Backup_'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ status('Downloaded a local JSON backup. Keep it private: it includes Gunner’s character data.');
+}
+function handleField(e){
+ const t=e.target;
+ if(t.dataset.field&&draft){draft[t.dataset.field]=t.value;changeDirty();return}
+ if(t.dataset.setting&&draft){
+  const k=t.dataset.setting,old=draft.settings[k];
+  draft.settings[k]=typeof old==='boolean'?!!t.checked:typeof old==='number'?(t.value===''?0:Number(t.value)):t.value;
+  changeDirty();refreshHeader();return;
+ }
+ if(t.dataset.secIndex!==undefined&&draft){
+  const sec=getSections()[Number(t.dataset.secIndex)];if(sec){sec[t.dataset.secField]=t.value;changeDirty()}return;
+ }
+ if(t.dataset.memory){
+  const mem=memories.find(m=>String(m.id)===String(t.dataset.memory));
+  if(mem)mem[t.dataset.mf]=t.type==='checkbox'?t.checked:t.value;
+ }
+}
+function handleClick(e){
+ const t=e.target.closest('button');if(!t||!draft)return;
+ if(t.dataset.tab){tab=t.dataset.tab;render();return}
+ if(t.dataset.stepkey){
+  const k=t.dataset.stepkey;draft.settings[k]=Math.max(0,n(draft.settings[k])+Number(t.dataset.step||0));changeDirty();render();return;
+ }
+ if(t.dataset.removeSetting){
+  const k=t.dataset.removeSetting;if(confirm('Remove the setting "'+k+'" from Gunner’s draft?')){delete draft.settings[k];changeDirty();render()}return;
+ }
+ if(t.dataset.removeSection!==undefined){
+  if(confirm('Remove this extra section from the draft?')){getSections().splice(Number(t.dataset.removeSection),1);changeDirty();render()}return;
+ }
+ if(t.dataset.saveMemory){saveMemory(t.dataset.saveMemory);return}
+ if(t.dataset.action==='addmemory'){addMemory();return}
+ if(t.dataset.action==='addsection'){
+  getSections().push({id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),title:'New Character Section',content:''});changeDirty();render();return;
+ }
+ if(t.dataset.action==='addtrait'){
+  const k=$('newTrait')?.value.trim(),kind=$('newTraitType')?.value;
+  if(!k||!/^[a-z][a-z0-9_]{1,80}$/i.test(k)){status('Use a name beginning with a letter, followed by letters, numbers, or underscores.',true);return}
+  if(Object.prototype.hasOwnProperty.call(draft.settings,k)){status('That setting already exists. Edit it above.',true);return}
+  draft.settings[k]=kind==='boolean'?true:kind==='text'?'':10;changeDirty();render();status('New setting added to the draft. Press Save profile to cloud to store it.');
+ }
+}
+async function startup(){
+ if(!window.supabase?.createClient){loginStatus('Supabase JS could not load. Check your connection and reload.',true);return}
+ sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+ sb.auth.onAuthStateChange((_evt,session)=>setTimeout(()=>onUser(session?.user||null),0));
+ try{const {data,error}=await sb.auth.getUser();if(error&&error.name!=='AuthSessionMissingError')throw error;await onUser(data?.user||null)}
+ catch(e){loginStatus('Unable to confirm login: '+errText(e),true)}
+}
+$('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();$('loginBtn').disabled=true;loginStatus('Signing in…');
+ try{
+  const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+  if(error)throw error;$('password').value='';await onUser(data.user);loginStatus('');
+ }catch(err){loginStatus('Sign-in failed: '+errText(err),true)}
+ finally{$('loginBtn').disabled=false}
+});
+$('signout').addEventListener('click',async()=>{if(dirty&&!confirm('You have unsaved profile changes. Sign out without saving?'))return;await sb.auth.signOut();await onUser(null)});
+$('tabs').addEventListener('click',handleClick);
+$('tabContent').addEventListener('click',handleClick);
+$('tabContent').addEventListener('input',handleField);
+$('tabContent').addEventListener('change',handleField);
+$('saveBtn').addEventListener('click',saveProfile);
+$('exportBtn').addEventListener('click',exportBackup);
+$('importBtn').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',async e=>{
+ const file=e.target.files?.[0];if(!file||!draft)return;
+ try{
+  const data=JSON.parse(await file.text()),p=data.profile;
+  if(!p||typeof p.character_definition!=='string'||typeof p.speaking_style!=='string'||typeof p.protected_background!=='string'||!p.settings||typeof p.settings!=='object')throw Error('Not a compatible Gunner profile backup.');
+  if(!confirm('Load this backup as an UNSAVED draft? The existing cloud profile stays unchanged until Save profile to cloud.'))return;
+  draft.character_definition=p.character_definition;draft.speaking_style=p.speaking_style;draft.protected_background=p.protected_background;draft.settings=clone(p.settings);
+  changeDirty();render();status('Backup imported into the editor as a draft. Review changes before saving.');
+ }catch(err){status('Import failed: '+errText(err),true)}
+ finally{e.target.value=''}
+});
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue=''}});
+startup();
+})();
+</script>
+</body>
+</html>
