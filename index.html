@@ -4,11 +4,19 @@ const endpoint='https://shdebjikbdanvmlehvda.supabase.co/functions/v1/gunner-pub
 const input=document.getElementById('message'),log=document.getElementById('messages'),btn=document.getElementById('send');
 const add=(value,cls)=>{const m=document.createElement('div');m.className='msg '+cls;m.textContent=value;log.append(m);m.scrollIntoView({block:'nearest'});return m};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function cleanGunnerReply(raw){
+ let t=String(raw||'').replace(/\\r\\n|\\n|\\r/g,'\n');
+ t=t.split(/<\|(?:im_end|im_start|eot_id|start_header_id|end_header_id|end_of_text)\|>/i)[0];
+ t=t.replace(/^\s*(?:(?:Gunner|Assistant)\s*:\s*)+/i,'');
+ t=t.split(/(?:^|\n)\s*(?:User|Gunner|Assistant|Human)\s*:/i)[0].trim();
+ return t||'No readable reply';
+}
 const KEY='gunner-demo-history-v1',JOB_KEY='gunner-pending-job-v2';
 let history=[];try{history=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(history))history=[];}catch{history=[]}
-history=history.filter(x=>x&&['user','gunner'].includes(x.role)&&typeof x.text==='string').slice(-12);
+history=history.filter(x=>x&&['user','gunner'].includes(x.role)&&typeof x.text==='string').slice(-12).map(x=>x.role==='gunner'?{role:'gunner',text:cleanGunnerReply(x.text)}:x);
+try{localStorage.setItem(KEY,JSON.stringify(history))}catch{}
 for(const item of history)add(item.text,item.role==='user'?'user':'system');
-function remember(role,value){history.push({role,text:value.slice(0,600)});history=history.slice(-12);try{localStorage.setItem(KEY,JSON.stringify(history))}catch{}}
+function remember(role,value){const safe=role==='gunner'?cleanGunnerReply(value):String(value);history.push({role,text:safe.slice(0,600)});history=history.slice(-12);try{localStorage.setItem(KEY,JSON.stringify(history))}catch{}}
 function readPending(){try{const p=JSON.parse(localStorage.getItem(JOB_KEY)||'null');if(p&&typeof p.job_id==='string'&&/^[A-Za-z0-9_-]{8,128}$/.test(p.job_id)&&typeof p.job_token==='string'&&/^[0-9a-f]{64}$/.test(p.job_token))return p}catch{}return null}
 let pending=readPending(),checking=false;
 const retry=document.createElement('button'),discard=document.createElement('button'),statusActions=document.createElement('div');
@@ -68,7 +76,7 @@ async function pollPending(notice){
    }
    if(d.status==='completed'){
     pending=null;savePending();msg.remove();
-    const answer=typeof d.answer==='string'&&d.answer.trim()?d.answer:'No readable reply from Gunner';
+    const answer=cleanGunnerReply(d.answer);
     add(answer,'system');remember('gunner',answer);
     const secs=Math.round((Date.now()-started)/1000),q=d.runpod_metrics?.delay_ms,e=d.runpod_metrics?.execution_ms;
     add('Total: '+secs+'s'+(typeof q==='number'?' · RunPod startup / queue '+(q/1000).toFixed(1)+'s':'')+(typeof e==='number'?' · generation '+(e/1000).toFixed(1)+'s':''),'system');
@@ -113,7 +121,7 @@ btn.addEventListener('click',async()=>{
   const job=await api({action:'start',message:v,history:previous,provider:selectedProvider},55000);
   if(job.status==='completed'){
    wait.remove();
-   const answer=typeof job.answer==='string'&&job.answer.trim()?job.answer:'No readable reply from Gunner';
+   const answer=cleanGunnerReply(job.answer);
    add(answer,'system');remember('gunner',answer);
    const elapsed=((Date.now()-submitted)/1000).toFixed(1);
    add('Response time: '+elapsed+'s'+(job.provider==='featherless'?' · Featherless Dolphin':'')+(typeof job.usage?.cost_usd==='number'?' · API cost (USD) '+job.usage.cost_usd.toFixed(5):''),'system');
